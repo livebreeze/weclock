@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>We Clock - index</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body id="page-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="./index.html#page-top">WE CLOCK</a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="headerText"></h1>
+                <h1 id="headerText2"></h1>
+                <script>
+                    var text = 'Hi! 是這樣的...';
+                    var count = 0;
+
+                    var refreshIntervalId = setInterval(function () {
+                        headerText.innerText = text.substr(0, count++)
+                        if (count > text.length) {
+                            clearInterval(refreshIntervalId);
+
+                            count = 0;
+                            text = '這裡有段字... for u!';
+                            refreshIntervalId = setInterval(function () {
+                                headerText2.innerText = text.substr(0, count++)
+                                if (count > text.length) {
+                                    clearInterval(refreshIntervalId);
+                                }
+                            }, 200)
+
+                        }
+                    }, 250);
+
+                </script>
+                <hr>
+                <p>下面那顆按鈕, 點下去吧!</p>
+                <a href="#about" id="btn_about" class="btn btn-primary btn-xl page-scroll">開始</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-dark" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p class="text-faded">
+                        <canvas id="surfaceWriteWords" width="1000" height="400"></canvas>
+						<a href="#about" id="aAgain" class="btn btn-primary btn-xl page-scroll">再看一次</a>
+                    </p>
+                    <p>距離設定時間, 倒數計時</p>
+                    <p class="text-faded">                        
+                        <canvas id="surface" width="600" height="400"></canvas>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Let's Get In Touch!</h2>
+					<hr class="primary">
+					<p>嗯，這是我的上課作業，有任何建議歡迎寄信給我~ ps.電話也是可以，但是應該不通</p>
+				</div>
+				<div class="col-lg-4 col-lg-offset-2 text-center">
+					<i class="fa fa-phone fa-3x wow bounceIn"></i>
+					<p>0900-123456</p>
+				</div>
+				<div class="col-lg-4 text-center">
+					<i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+					<p><a href="mailto:livebreeze@gmail.com">livebreeze@gmail.com</a></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+    <script>
+
+        var theDate = localStorage.theDate;
+        var recodeWord = localStorage.recodeWord;
+        var chooseImgSrc = localStorage.chooseImgSrc;
+        var emptyHidden = "<input type=\"hidden\" id=\"{id}\" value='{value}' />";
+
+        if (theDate) {
+            $('body').append(emptyHidden.replace("{id}", "hid_theDate").replace("{value}", theDate));
+        }
+        if (recodeWord) {
+            $('body').append(emptyHidden.replace("{id}", "hid_recodeWord").replace("{value}", recodeWord));
+        }
+        if (chooseImgSrc) {
+            $('body').append(emptyHidden.replace("{id}", "hid_chooseImgSrc").replace("{value}", chooseImgSrc));
+        }
+
+        $(document).ready(function () {
+            $('header').css('background-image', 'url("' + $('#hid_chooseImgSrc').val() + '")');
+        });
+
+        var drawRecodeWord = function () {
+        	if ($('#hid_recodeWord').val()) {
+        		var canvas = document.getElementById("surfaceWriteWords");
+        		var ctx = canvas.getContext('2d');
+        		ctx.globalCompositeOperation = "copy";
+
+        		var storageRecodeWord = JSON.parse($('#hid_recodeWord').val());
+        		var lastWordTime = 0;
+        		var setTime = 0;
+        		$.each(storageRecodeWord, function (key, value) {
+
+
+        			if (value.wordTime - lastWordTime > 1000) {
+        				setTime += 1000;
+        			} else {
+        				setTime += value.wordTime - lastWordTime;
+        			}
+
+        			lastWordTime = value.wordTime;
+
+        			recodeSetTime = setTimeout(function () {
+        				ctx.save();
+        				ctx.font = "30px Arial";
+        				//ctx.fillStyle = "rgba(256, 256, 256, 0.3)";
+        				ctx.fillStyle = "white";
+
+        				var words = value.word.split('');
+        				var line = "";
+        				var line_y = 100;
+
+        				for (var n = 0; n < words.length; n++) {
+        					var testLine = line + words[n] + " ";
+        					var metrics = ctx.measureText(testLine);
+        					var testWidth = metrics.width;
+        					if (testWidth > 500 || words[n].indexOf("\n") > -1) {
+        						//ctx.fillText(line, 5, line_y);
+        						//ctx.restore();
+        						line = words[n] + " ";
+        						line_y += 40;
+        					}
+        					else {
+        						line = testLine;
+        					}
+        				}
+
+
+        				//ctx.fillText(value.word, 5, line_y);
+        				ctx.fillText(line, 5, line_y);
+
+        				ctx.restore();
+        			}, setTime)
+        		})
+        	}
+        }
+
+    	//*  display Recode word **/
+        $('#aAgain').on('click', drawRecodeWord)
+        $('#btn_about').on('click', drawRecodeWord);
+
+        ///*Canvas*/
+        (function () {
+            var lineHour = {
+                x: 300,
+                y: 200,
+                length: 70,
+                angle: 0
+            };
+
+            var lineMin = {
+                x: 300,
+                y: 200,
+                length: 100,
+                angle: 0
+            };
+
+            var lineSec = {
+                x: 300,
+                y: 200,
+                length: 150,
+                angle: 0
+            };
+
+            var lineMiniSec = {
+                x: 300,
+                y: 200,
+                length: 20,
+                angle: 0.5
+            }
+
+            var canvas = document.getElementById("surface");
+
+            var ctx = canvas.getContext('2d');
+
+            var temp_now_str = '';
+            var sub = 0;
+            var sub_end = String(new Date()).length;
+            var theDate = new Date($('#hid_theDate').val());
+            
+
+            setInterval(function () {
+                ctx.save();
+
+                /********************************************************/
+                // Draw Countdown time
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "white";
+                
+                var n = new Date();
+                var sec_str = n.getSeconds(),
+                    min_str = n.getMinutes(),
+                    hou_str = n.getHours(),
+                        day_str = n.getDay(),
+                        month_str = n.getMonth(),
+                        year_str = n.getYear();
+                var dif_year = Number(theDate.getYear() - year_str);
+                var dif_mon = Number(theDate.getMonth() - month_str);
+                var dif_day = Number(theDate.getDay() - day_str);
+                var dif_hour = Number(theDate.getHours() - hou_str);
+                var dif_min = Number(theDate.getMinutes() - min_str);
+                var dif_sec = Number(theDate.getSeconds() - sec_str);
+
+                if (dif_mon < 0) { dif_mon += 12; }
+                // TODO fix bug for days in month dif
+                if (dif_day < 0) { dif_day += 30; }
+                if (dif_hour < 0) { dif_hour += 24; }
+                if (dif_min < 0) { dif_min += 60; }
+                if (dif_sec < 0) { dif_sec += 60; }
+
+                var display_now =
+                    '倒數 ' + dif_year + ' 年 '
+                    + dif_mon + ' 個月 '
+                    + dif_day + ' 天   '
+                    + dif_hour + ' 小時 '
+                    + dif_min + ' 分 '
+                    + dif_sec + ' 秒 ';
+                var arr = display_now.split('');
+                //var arr = String(n).split('');
+
+                var attLen = arr.length;
+
+                if (sub < attLen + 60) {
+                    if (sub < attLen) {
+                        temp_now_str += arr[sub];
+                    };
+
+                    ctx.fillText(temp_now_str, 20, 50);
+                    sub++;
+                } else {
+                    temp_now_str = '';
+                    sub = 0;
+                }
+
+                ctx.restore();
+                /********************************************************/
+
+
+
+                // hour
+                // Clear display
+                ctx.save();
+                ctx.fillStyle = "rgba(0, 0, 0, .1)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+                // Update angle - with geometry! =)
+
+                lineHour.angle = parseFloat((Math.PI * parseFloat(hou_str)) / 6)
+                    + parseFloat((Math.PI * parseFloat(min_str)) / 360)
+                    + parseFloat((Math.PI * parseFloat(sec_str) / 21600))
+                    - parseFloat((Math.PI * 0.5));
+                var x = lineHour.x + lineHour.length * Math.cos(lineHour.angle);
+                var y = lineHour.y + lineHour.length * Math.sin(lineHour.angle);
+
+                // Draw lineHour
+                ctx.save();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 10;
+                ctx.beginPath();
+                ctx.moveTo(lineHour.x, lineHour.y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+
+
+                // min
+                // Clear display
+                ctx.save();
+                ctx.fillStyle = "rgba(0, 0, 0, .1)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+                // Update angle - with geometry! =)
+
+                lineMin.angle = parseFloat((Math.PI * min_str) / 30)
+                    + parseFloat((Math.PI * sec_str) / 1800)
+                    - parseFloat((Math.PI * 0.5));
+                var x = lineMin.x + lineMin.length * Math.cos(lineMin.angle);
+                var y = lineMin.y + lineMin.length * Math.sin(lineMin.angle);
+
+                // Draw lineMin
+                ctx.save();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.moveTo(lineMin.x, lineMin.y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+
+
+                // second
+                // Clear display
+                ctx.save();
+                ctx.fillStyle = "rgba(0, 0, 0, .1)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+                // Update angle - with geometry! =)
+
+                lineSec.angle = (Math.PI * 1000 * sec_str) / 30000 - (Math.PI * 0.5);
+                var x = lineSec.x + lineSec.length * Math.cos(lineSec.angle);
+                var y = lineSec.y + lineSec.length * Math.sin(lineSec.angle);
+
+                // Draw lineSec
+                ctx.save();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(lineSec.x, lineSec.y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+
+                // minisecond
+                // Clear display
+                ctx.save();
+                ctx.fillStyle = "rgba(0, 0, 0, .5)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+                // Update angle - with geometry! =)
+
+                lineMiniSec.angle += (Math.PI * 2) / 60;
+                var x = lineMiniSec.x + lineMiniSec.length * Math.cos(lineMiniSec.angle);
+                var y = lineMiniSec.y + lineMiniSec.length * Math.sin(lineMiniSec.angle);
+
+                // Draw lineMiniSec
+                ctx.save();
+                ctx.strokeStyle = "white";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(lineMiniSec.x, lineMiniSec.y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+
+            }, 1000 / 50);
+        })()
+    </script>
+</body>
+
+</html>
